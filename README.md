@@ -7,7 +7,9 @@ but outside a Laravel project.
 Installation
 ------------
 
-Coming.
+```bash
+$ composer require kocal/validator
+```
 
 Usage
 -----
