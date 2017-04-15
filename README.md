@@ -1,6 +1,8 @@
 Validator
 =========
 
+[![Build Status](https://travis-ci.org/Kocal/validator.svg?branch=master)](https://travis-ci.org/Kocal/validator)
+
 A PHP values validator that makes you able to use the great [Laravel Validator](https://laravel.com/docs/master/validation),
 but outside a Laravel project.
 
