@@ -1,8 +1,9 @@
 {
   "name": "kocal/validator",
-  "description": "",
+  "description": "Validator bassed on Laravel Validator, with support of translation.",
   "type": "library",
   "license": "GPL-3.0",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "Hugo Alliaume",
