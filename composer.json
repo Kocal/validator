@@ -1,0 +1,33 @@
+{
+  "name": "kocal/validator",
+  "description": "",
+  "type": "library",
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Hugo Alliaume",
+      "email": "kocal@live.fr"
+    }
+  ],
+  "scripts": {
+    "spec": "kahlan --reporter=verbose"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kocal\\Validator\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Kocal\\Spec\\": "spec/"
+    }
+  },
+  "require": {
+    "php": ">=5.4",
+    "illuminate/validation": "^5.4",
+    "caouecs/laravel-lang": "~3.0"
+  },
+  "require-dev": {
+    "kahlan/kahlan": "^3.1"
+  }
+}
