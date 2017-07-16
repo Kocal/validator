@@ -17,7 +17,7 @@ describe(Validator::class, function () {
             'users' => [
                 ['id' => 1, 'email' => 'john@example.com'],
                 ['id' => 2, 'email' => 'smith@example.com'],
-            ]
+            ],
         ]);
 
         expect($validator->passes())->toBeTruthy();
@@ -25,9 +25,7 @@ describe(Validator::class, function () {
     });
 
     it('should not validate', function () {
-        $validator = new Validator([
-            'foo' => 'required'
-        ]);
+        $validator = new Validator(['foo' => 'required']);
         $validator->validate([]);
 
         expect($validator->fails())->toBeTruthy();
@@ -39,11 +37,11 @@ describe(Validator::class, function () {
     it('should use custom error messages', function () {
         $validator = new Validator([
             'foo' => 'required',
-            'bar' => 'min:10'
+            'bar' => 'min:10',
         ]);
         $validator->validate(['bar' => 'foo'], [
             'required' => 'Le champ :attribute est réellement obligatoire.',
-            'bar.min' => "Un message d'erreur customisé."
+            'bar.min' => "Un message d'erreur customisé.",
         ]);
 
         expect($validator->fails())->toBeTruthy();
@@ -59,7 +57,7 @@ describe(Validator::class, function () {
 
         expect($validator->fails())->toBeTruthy();
         expect($validator->errors()->toArray())->toBe([
-            'foo' => ["Le champ FOO est obligatoire."]
+            'foo' => ["Le champ FOO est obligatoire."],
         ]);
     });
 
@@ -69,12 +67,12 @@ describe(Validator::class, function () {
             return $value == 'foo';
         }, "Le champ :attribute n'est pas égal à 'foo'.");
         $validator->validate([
-            'foo' => 'not_foo'
+            'foo' => 'not_foo',
         ]);
 
         expect($validator->fails())->toBeTruthy();
         expect($validator->errors()->toArray())->toBe([
-            'foo' => ["Le champ foo n'est pas égal à 'foo'."]
+            'foo' => ["Le champ foo n'est pas égal à 'foo'."],
         ]);
     });
 
@@ -85,7 +83,20 @@ describe(Validator::class, function () {
         expect($validator->fails())->toBeTruthy();
         expect($validator->errors()->toArray())->toBe([
             'foo' => ["The foo may not be greater than 3 characters."],
-            'email' => ["The E-mail address must be a valid email address."]
+            'email' => ["The E-mail address must be a valid email address."],
+        ]);
+    });
+
+    it('should use fallback translation', function () {
+        $nonExistingLocale = 'foobar';
+        $fallbackLocale = 'en';
+
+        $validator = new Validator(['email' => 'email'], $nonExistingLocale, $fallbackLocale);
+        $validator->validate(['email' => 'not-an-email']);
+
+        expect($validator->fails())->toBeTruthy();
+        expect($validator->errors()->toArray())->toBe([
+            'email' => ["The E-mail address must be a valid email address."],
         ]);
     });
 

@@ -32,25 +32,33 @@ class Validator
 
     /**
      * Validator constructor.
-     * @param array $rules
-     * @param string $locale
+     *
+     * @param array       $rules
+     * @param string      $locale
+     * @param string|null $fallback
      */
-    public function __construct(array $rules = [], $locale = 'fr')
+    public function __construct(array $rules = [], $locale = 'fr', $fallback = null)
     {
         $this->rules = $rules;
         $this->locale = $locale;
 
         $loader = new FileLoader(new Filesystem(), __DIR__ . '/lang');
         $translator = new Translator($loader, $this->locale);
+
+        if ($fallback !== null) {
+            $translator->setFallback($fallback);
+        }
+
         $this->validatorFactory = new Factory($translator, new Container());
     }
 
     /**
      * Register a custom validator extension.
      *
-     * @param  string  $rule
-     * @param  \Closure|string  $extension
-     * @param  string  $message
+     * @param  string          $rule
+     * @param  \Closure|string $extension
+     * @param  string          $message
+     *
      * @return void
      */
     public function extend($rule, $extension, $message = null)
